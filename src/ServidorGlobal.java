@@ -13,12 +13,13 @@ public class ServidorGlobal {
     public static int index = 0;
 
     public static void main(String[] args) {
-// TODO Auto-generated method stub
+        //conexao ao servidor
         try {
             System.out.println("Servidor aceita conexões.");
             ServerSocket ss = new ServerSocket(1111);
 
             Socket s;
+            //cliente recebido
             while (true) {
                 s = ss.accept();
                 System.out.println("Novo client recebido : " + s);
@@ -40,6 +41,7 @@ public class ServidorGlobal {
         }
     }
 
+    //inforamcoes do cliente
     private static class ClientHandler extends ServidorGlobal implements Runnable {
         private String name;
         final DataInputStream dis;
@@ -58,6 +60,8 @@ public class ServidorGlobal {
             this.isloggedin = true;
         }
 
+        //mensagens
+        //utilizador entrou, fez jogada ou fez logout
         @Override
         public void run() {
             String recebido;
@@ -86,6 +90,7 @@ public class ServidorGlobal {
 
                     }
 
+
                     if(recebido.startsWith("qs")){
 
                         System.out.println("Antes de enviar este foi o " + index + "do cliente " + this.name);
@@ -96,11 +101,12 @@ public class ServidorGlobal {
                         System.out.println("Depois de enviar este é o index " + index + "do cliente " + this.name);
                     }
 
+
+                    //jogada do primeiro jogador
                     if(recebido.startsWith("P1")){
 
                         System.out.println(this.name + ": Jogou esta jogada = " + recebido);
 
-                        //  do{
 
                         for(ClientHandler mc : ServidorGlobal.ar){
 
@@ -113,10 +119,10 @@ public class ServidorGlobal {
 
                             }
                         }
-
-                        //  }while(pingpong == false);
                     }
 
+
+                    //jogada do segundo jogador
                     if(recebido.startsWith("P2")){
 
                         System.out.println(this.name + ": Jogou esta jogada = " + recebido);
@@ -134,7 +140,7 @@ public class ServidorGlobal {
                         }
                     }
 
-
+                //handler do erro (caso haja erro de conexao
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
