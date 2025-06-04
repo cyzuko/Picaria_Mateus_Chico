@@ -122,7 +122,7 @@ public class ServidorGlobal {
                     }
 
 
-                    //jogada do segundo jogador
+                    //jogada do segundo jogadorr
                     if(recebido.startsWith("P2")){
 
                         System.out.println(this.name + ": Jogou esta jogada = " + recebido);
